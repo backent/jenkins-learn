@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+    environment {
+        MY_APP_CRED = credentials('my-app-cred')
+        // MY_APP_CRED_USR = credentials('my-app-cred-usr')
+        // MY_APP_CRED_PWD = credentials('my-app-cred-pwd')
+    }
     
     stages {
         stage('Build') {
@@ -11,9 +17,9 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh 'echo "Building on branch: $(which docker)"'
-                // sh 'echo "Using credentials: $MY_APP_CRED"'
-                // sh 'echo "Using credentials: $MY_APP_CRED_USR"'
-                // sh 'echo "Using credentials: $MY_APP_CRED_PWD"'
+                sh 'echo "Using credentials: $MY_APP_CRED"'
+                sh 'echo "Using credentials: $MY_APP_CRED_USR"'
+                sh 'echo "Using credentials: $MY_APP_CRED_PWD"'
                 withCredentials([usernamePassword(credentialsId: 'expired-cred-admin', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh 'echo "Username: $USERNAME"'
                     sh 'echo "Password: $PASSWORD"'
