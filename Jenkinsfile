@@ -9,7 +9,7 @@ pipeline {
             }
             steps {
                 echo 'Building..'
-                echo "$(which docker)"
+                sh 'echo "Building on branch: $(which docker)"'
             }
         }
         stage('Test') {
