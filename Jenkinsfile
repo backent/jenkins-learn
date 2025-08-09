@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        MY_APP_CRED = credentials('exp-userpwd-admin')
+    }
     stages {
         stage('Build') {
             when {
@@ -10,11 +13,17 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh 'echo "Building on branch: $(which docker)"'
+                sh 'echo "Using credentials: $MY_APP_CRED"'
+                sh 'echo "Using credentials: $MY_APP_CRED_USR"'
+                sh 'echo "Using credentials: $MY_APP_CRED_PWD"'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
+                sh('echo "Using credentials: $MY_APP_CRED"')
+                sh 'echo "Using credentials: $MY_APP_CRED_USR"'
+                sh 'echo "Using credentials: $MY_APP_CRED_PWD"'
             }
         }
         stage('Deploy') {
