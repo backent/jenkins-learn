@@ -3,9 +3,6 @@ pipeline {
     
     stages {
         stage('Build') {
-            environment {
-                MY_APP_CRED = credentials('exp-userpwd-admin')
-            }
             when {
                 expression {
                     env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main'
@@ -17,6 +14,10 @@ pipeline {
                 // sh 'echo "Using credentials: $MY_APP_CRED"'
                 // sh 'echo "Using credentials: $MY_APP_CRED_USR"'
                 // sh 'echo "Using credentials: $MY_APP_CRED_PWD"'
+            }
+            withCredentials([usernamePassword(credentialsId: 'exp-userpwd-admin', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh 'echo "Username: $USERNAME"'
+                sh 'echo "Password: $PASSWORD"'
             }
         }
         stage('Test') {
