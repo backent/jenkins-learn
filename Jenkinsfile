@@ -24,7 +24,9 @@ pipeline {
         }
         stage('Deploy to Production') {
             when {
-                BRANCH_NAME == "release"
+                expression {
+                    BRANCH_NAME == "release"
+                }
             }
             steps {
                 echo 'Deploying..'
