@@ -1,10 +1,11 @@
 pipeline {
     agent any
-    environment {
-        MY_APP_CRED = "awf"
-    }
+    
     stages {
         stage('Build') {
+            environment {
+                MY_APP_CRED = credentials('exp-userpwd-admin')
+            }
             when {
                 expression {
                     env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main'
