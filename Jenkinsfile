@@ -14,10 +14,10 @@ pipeline {
                 // sh 'echo "Using credentials: $MY_APP_CRED"'
                 // sh 'echo "Using credentials: $MY_APP_CRED_USR"'
                 // sh 'echo "Using credentials: $MY_APP_CRED_PWD"'
-            }
-            withCredentials([usernamePassword(credentialsId: 'expired-cred-admin', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh 'echo "Username: $USERNAME"'
-                sh 'echo "Password: $PASSWORD"'
+                withCredentials([usernamePassword(credentialsId: 'expired-cred-admin', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'echo "Username: $USERNAME"'
+                    sh 'echo "Password: $PASSWORD"'
+                }
             }
         }
         stage('Test') {
