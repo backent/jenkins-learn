@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        MY_APP_CRED = credentials('exp-userpwd-admin')
+        MY_APP_CRED = "awf"
     }
     stages {
         stage('Build') {
