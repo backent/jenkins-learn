@@ -2,8 +2,14 @@ pipeline {
     agent any
     stages {
         stage('Build') {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'develop' || env.BRANCH_NAME == 'main'
+                } 
+            }
             steps {
                 echo 'Building..'
+                echo "$(which docker)"
             }
         }
         stage('Test') {
@@ -18,7 +24,7 @@ pipeline {
         }
         stage('Deploy to Production') {
             when {
-                branch 'main'
+                BRANCH_NAME == "release"
             }
             steps {
                 echo 'Deploying..'
